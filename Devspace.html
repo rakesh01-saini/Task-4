@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rakesh Saini — Personal Portfolio | DevSpace Task-4</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#F6F0E6',
+                        charcoal: '#242321',
+                        terracotta: {
+                            DEFAULT: '#C65D3A',
+                            hover: '#b04f2f',
+                            light: '#f5e8e2'
+                        },
+                        mutedBeige: '#E7DED0',
+                        cardBg: '#FFFFFF',
+                        subtleBorder: '#E0D7C9'
+                    },
+                    fontFamily: {
+                        serif: ['Cormorant Garamond', 'Georgia', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #F6F0E6;
+            color: #242321;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .font-serif-title {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #F6F0E6;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #C65D3A;
+            border-radius: 3px;
+        }
+        .modal-backdrop {
+            background-color: rgba(36, 35, 33, 0.6);
+            backdrop-filter: blur(4px);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-terracotta selection:text-white">
+
+    <!-- Top Bar / Workspace Switcher -->
+    <header class="sticky top-0 z-50 bg-[#F6F0E6]/90 backdrop-blur-md border-b border-subtleBorder">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Brand Logo -->
+                <div class="flex items-center space-x-3">
+                    <span class="w-10 h-10 rounded-full bg-charcoal text-cream font-serif font-bold text-xl flex items-center justify-center border border-terracotta">
+                        RS
+                    </span>
+                    <div>
+                        <span class="text-xl font-serif-title font-bold tracking-tight text-charcoal block leading-none">
+                            DevSpace <span class="text-terracotta text-sm font-sans font-medium uppercase tracking-widest">Task-4</span>
+                        </span>
+                        <span class="text-xs text-gray-500 font-sans tracking-wide">Editorial Studio Theme</span>
+                    </div>
+                </div>
+
+                <!-- Tab Switchers for Integrated Apps -->
+                <nav class="hidden md:flex items-center space-x-1 bg-mutedBeige p-1.5 rounded-full border border-subtleBorder">
+                    <button id="tab-btn-portfolio" onclick="switchTab('portfolio')" class="px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 bg-charcoal text-cream shadow-sm">
+                        <i class="fa-solid fa-user-gear mr-2"></i>Personal Portfolio
+                    </button>
+                    <button id="tab-btn-taskflow" onclick="switchTab('taskflow')" class="px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 text-charcoal hover:bg-cream/60">
+                        <i class="fa-solid fa-check-double mr-2"></i>TaskFlow
+                    </button>
+                    <button id="tab-btn-shopsphere" onclick="switchTab('shopsphere')" class="px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 text-charcoal hover:bg-cream/60">
+                        <i class="fa-solid fa-bag-shopping mr-2"></i>ShopSphere
+                    </button>
+                </nav>
+
+                <!-- Portfolio Internal Navigation Links (Shown on Portfolio Tab) -->
+                <div id="portfolio-nav-links" class="hidden lg:flex items-center space-x-6 text-sm font-medium">
+                    <a href="#about" class="text-charcoal/80 hover:text-terracotta transition-colors">About</a>
+                    <a href="#education" class="text-charcoal/80 hover:text-terracotta transition-colors">Education</a>
+                    <a href="#skills" class="text-charcoal/80 hover:text-terracotta transition-colors">Skills</a>
+                    <a href="#projects" class="text-charcoal/80 hover:text-terracotta transition-colors">Projects</a>
+                    <a href="#experience" class="text-charcoal/80 hover:text-terracotta transition-colors">Experience</a>
+                    <a href="#contact" class="px-4 py-2 rounded-lg bg-terracotta text-cream hover:bg-terracotta-hover transition-colors font-medium">Contact</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="flex items-center md:hidden">
+                    <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="p-2 rounded-lg text-charcoal hover:bg-mutedBeige focus:outline-none">
+                        <i id="mobile-menu-icon" class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-cream border-b border-subtleBorder px-4 pt-2 pb-6 space-y-4">
+            <div class="space-y-1 pb-3 border-b border-subtleBorder">
+                <span class="text-xs font-semibold uppercase tracking-wider text-gray-500 block px-3 py-1">DevSpace Apps</span>
+                <button onclick="switchTab('portfolio'); toggleMobileMenu()" class="w-full text-left px-3 py-2 rounded-md text-base font-medium text-charcoal bg-mutedBeige flex items-center">
+                    <i class="fa-solid fa-user-gear mr-3 text-terracotta"></i>Personal Portfolio
+                </button>
+                <button onclick="switchTab('taskflow'); toggleMobileMenu()" class="w-full text-left px-3 py-2 rounded-md text-base font-medium text-charcoal hover:bg-mutedBeige flex items-center">
+                    <i class="fa-solid fa-check-double mr-3 text-terracotta"></i>TaskFlow App
+                </button>
+                <button onclick="switchTab('shopsphere'); toggleMobileMenu()" class="w-full text-left px-3 py-2 rounded-md text-base font-medium text-charcoal hover:bg-mutedBeige flex items-center">
+                    <i class="fa-solid fa-bag-shopping mr-3 text-terracotta"></i>ShopSphere App
+                </button>
+            </div>
+            <div id="mobile-portfolio-links" class="space-y-1">
+                <span class="text-xs font-semibold uppercase tracking-wider text-gray-500 block px-3 py-1">Portfolio Sections</span>
+                <a href="#about" onclick="toggleMobileMenu()" class="block px-3 py-2 text-base font-medium text-charcoal/80 hover:text-terracotta">About Me</a>
+                <a href="#education" onclick="toggleMobileMenu()" class="block px-3 py-2 text-base font-medium text-charcoal/80 hover:text-terracotta">Education</a>
+                <a href="#skills" onclick="toggleMobileMenu()" class="block px-3 py-2 text-base font-medium text-charcoal/80 hover:text-terracotta">Skills</a>
+                <a href="#projects" onclick="toggleMobileMenu()" class="block px-3 py-2 text-base font-medium text-charcoal/80 hover:text-terracotta">Projects</a>
+                <a href="#experience" onclick="toggleMobileMenu()" class="block px-3 py-2 text-base font-medium text-charcoal/80 hover:text-terracotta">Experience</a>
+                <a href="#contact" onclick="toggleMobileMenu()" class="block px-3 py-2 text-base font-medium text-terracotta font-semibold">Contact Me</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+
+        <!-- ========================================== -->
+        <!-- TAB 1: PERSONAL PORTFOLIO TAB              -->
+        <!-- ========================================== -->
+        <div id="view-portfolio" class="space-y-24 py-8">
+
+            <!-- Hero Section -->
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-12">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    <div class="lg:col-span-7 space-y-6">
+                        <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-terracotta/10 border border-terracotta/20 text-terracotta text-sm font-medium">
+                            <span class="w-2 h-2 rounded-full bg-terracotta animate-pulse"></span>
+                            <span>• Learning • Building • Improving</span>
+                        </div>
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-serif-title font-bold text-charcoal leading-tight">
+                            Hello, I'm <span class="text-terracotta italic">Rakesh Saini</span>.
+                        </h1>
+                        <p class="text-xl sm:text-2xl font-serif text-charcoal/80 font-medium italic">
+                            "I build digital experiences and intelligent systems."
+                        </p>
+                        <p class="text-base text-gray-700 leading-relaxed max-w-2xl">
+                            I'm a Computer Science Engineering student passionate about building responsive web applications, interactive tools, and intelligent IoT and robotics projects. I enjoy turning ideas into practical, user-friendly solutions.
+                        </p>
+
+                        <!-- Badges / Labels -->
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="px-3 py-1 rounded-md bg-mutedBeige text-charcoal text-xs font-semibold tracking-wider uppercase border border-subtleBorder">Frontend Web Developer</span>
+                            <span class="px-3 py-1 rounded-md bg-mutedBeige text-charcoal text-xs font-semibold tracking-wider uppercase border border-subtleBorder">CSE Student</span>
+                            <span class="px-3 py-1 rounded-md bg-mutedBeige text-charcoal text-xs font-semibold tracking-wider uppercase border border-subtleBorder">IoT & Robotics Enthusiast</span>
+                        </div>
+
+                        <!-- Hero Call To Actions -->
+                        <div class="flex flex-wrap gap-4 pt-4">
+                            <a href="#projects" class="px-6 py-3 rounded-lg bg-terracotta text-cream font-medium hover:bg-terracotta-hover transition-all shadow-md flex items-center">
+                                View My Projects <i class="fa-solid fa-arrow-down-long ml-2 text-sm"></i>
+                            </a>
+                            <a href="#about" class="px-6 py-3 rounded-lg bg-cardBg text-charcoal border border-subtleBorder font-medium hover:bg-mutedBeige transition-all">
+                                About Me
+                            </a>
+                            <a href="#contact" class="px-6 py-3 rounded-lg bg-cardBg text-charcoal border border-subtleBorder font-medium hover:bg-mutedBeige transition-all">
+                                Contact Me
+                            </a>
+                            <button onclick="downloadResume()" class="px-6 py-3 rounded-lg bg-charcoal text-cream font-medium hover:bg-charcoal/90 transition-all flex items-center">
+                                <i class="fa-solid fa-download mr-2"></i>Download Resume
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Editorial Profile Frame Avatar -->
+                    <div class="lg:col-span-5 flex justify-center">
+                        <div class="relative w-72 h-80 sm:w-80 sm:h-96 rounded-2xl bg-mutedBeige border-2 border-subtleBorder p-4 shadow-xl flex flex-col justify-between overflow-hidden group">
+                            <div class="absolute inset-0 bg-gradient-to-tr from-terracotta/10 via-transparent to-charcoal/5"></div>
+                            
+                            <!-- Header badge -->
+                            <div class="relative z-10 flex justify-between items-center">
+                                <span class="text-xs font-bold tracking-widest uppercase text-charcoal/60">CSE // UIT RGPV</span>
+                                <span class="w-3 h-3 rounded-full bg-emerald-500 border-2 border-cream"></span>
+                            </div>
+
+                            <!-- Centered Initials Avatar -->
+                            <div class="relative z-10 my-auto text-center">
+                                <div class="w-32 h-32 mx-auto rounded-full bg-charcoal text-cream flex items-center justify-center text-4xl font-serif-title font-bold border-4 border-terracotta shadow-lg transition-transform duration-500 group-hover:scale-105">
+                                    RS
+                                </div>
+                                <h3 class="mt-4 text-xl font-serif-title font-bold text-charcoal">Rakesh Saini</h3>
+                                <p class="text-xs text-gray-600 font-medium">B.Tech CSE</p>
+                            </div>
+
+                            <!-- Bottom Status Indicator -->
+                            <div class="relative z-10 bg-cardBg/90 backdrop-blur-sm p-3 rounded-xl border border-subtleBorder text-center">
+                                <span class="text-xs text-charcoal font-semibold block">Apex Planet Web Dev Intern</span>
+                                <span class="text-[11px] text-gray-500 block">Focus: Frontend & Embedded Systems</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Me Section -->
+            <section id="about" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
+                <div class="border-t border-subtleBorder pt-12">
+                    <div class="max-w-3xl mb-12">
+                        <h2 class="text-xs uppercase tracking-widest text-terracotta font-semibold mb-2">Introduction</h2>
+                        <h3 class="text-3xl sm:text-4xl font-serif-title font-bold text-charcoal">A Little About Me</h3>
+                        <p class="mt-6 text-lg text-gray-700 leading-relaxed">
+                            I'm Rakesh Saini, a Computer Science Engineering student at UIT RGPV, Bhopal. I completed my engineering diploma at Government Polytechnic College, Raghogarh, in 2026 and am continuing my studies through lateral-entry B.Tech.
+                        </p>
+                        <p class="mt-4 text-base text-gray-600 leading-relaxed">
+                            I'm interested in web development, programming, UI design, Internet of Things, and robotics. I like creating practical projects that combine functionality with a clean user experience. My work includes frontend websites, productivity applications, visual learning tools, and NiRaBot-X, an AI-powered intelligent surveillance and humanoid robot project.
+                        </p>
+                        <p class="mt-4 text-base text-gray-600 leading-relaxed">
+                            I'm continuously improving my technical skills through hands-on projects, internship tasks, and academic learning.
+                        </p>
+                    </div>
+
+                    <!-- What I Do Grid -->
+                    <h4 class="text-xl font-serif-title font-bold text-charcoal mb-6">What I Do</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="bg-cardBg p-6 rounded-xl border border-subtleBorder shadow-sm hover:border-terracotta/40 transition-all">
+                            <div class="w-12 h-12 rounded-lg bg-terracotta/10 text-terracotta flex items-center justify-center text-xl mb-4">
+                                <i class="fa-solid fa-code"></i>
+                            </div>
+                            <h5 class="font-bold text-lg text-charcoal mb-2">Web Development</h5>
+                            <p class="text-sm text-gray-600">Building responsive, accessible, and structured modern web applications using clean semantic markup and modern styling.</p>
+                        </div>
+                        <div class="bg-cardBg p-6 rounded-xl border border-subtleBorder shadow-sm hover:border-terracotta/40 transition-all">
+                            <div class="w-12 h-12 rounded-lg bg-terracotta/10 text-terracotta flex items-center justify-center text-xl mb-4">
+                                <i class="fa-brands fa-js"></i>
+                            </div>
+                            <h5 class="font-bold text-lg text-charcoal mb-2">JavaScript Applications</h5>
+                            <p class="text-sm text-gray-600">Creating dynamic logic, interactive games, DOM manipulations, state-driven productivity dashboards, and tools.</p>
+                        </div>
+                        <div class="bg-cardBg p-6 rounded-xl border border-subtleBorder shadow-sm hover:border-terracotta/40 transition-all">
+                            <div class="w-12 h-12 rounded-lg bg-terracotta/10 text-terracotta flex items-center justify-center text-xl mb-4">
+                                <i class="fa-solid fa-robot"></i>
+                            </div>
+                            <h5 class="font-bold text-lg text-charcoal mb-2">Robotics & IoT</h5>
+                            <p class="text-sm text-gray-600">Designing embedded hardware systems with ESP32, sensors, motor controls, and Blynk IoT with live streaming and AI API links.</p>
+                        </div>
+                        <div class="bg-cardBg p-6 rounded-xl border border-subtleBorder shadow-sm hover:border-terracotta/40 transition-all">
+                            <div class="w-12 h-12 rounded-lg bg-terracotta/10 text-terracotta flex items-center justify-center text-xl mb-4">
+                                <i class="fa-solid fa-pen-ruler"></i>
+                            </div>
+                            <h5 class="font-bold text-lg text-charcoal mb-2">UI/UX & Responsive Design</h5>
+                            <p class="text-sm text-gray-600">Crafting clean layout hierarchies, fluid grid systems, editorial typography, and seamless touch-friendly user journeys.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Education Timeline Section -->
+            <section id="education" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
+                <div class="border-t border-subtleBorder pt-12">
+                    <div class="mb-10">
+                        <h2 class="text-xs uppercase tracking-widest text-terracotta font-semibold mb-2">Academic Journey</h2>
+                        <h3 class="text-3xl sm:text-4xl font-serif-title font-bold text-charcoal">Education Timeline</h3>
+                    </div>
+
+                    <div class="relative border-l-2 border-subtleBorder ml-4 md:ml-8 space-y-12">
+                        <!-- Current B.Tech -->
+                        <div class="relative pl-8">
+                            <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-terracotta border-4 border-cream"></div>
+                            <div class="bg-cardBg p-6 rounded-xl border border-subtleBorder shadow-sm max-w-3xl">
+                                <div class="flex flex-wrap justify-between items-start gap-2 mb-2">
+                                    <span class="px-3 py-1 rounded-full bg-terracotta/10 text-terracotta text-xs font-bold uppercase">2026 – Present (Currently Pursuing)</span>
+                                    <span class="text-xs font-semibold text-gray-500">2nd Year, 3rd Semester</span>
+                                </div>
+                                <h4 class="text-xl font-serif-title font-bold text-charcoal">B.Tech in Computer Science Engineering </h4>
+                                <p class="text-sm text-terracotta font-medium mb-3">University Institute of Technology, RGPV, Bhopal</p>
+                                <p class="text-sm text-gray-600">University: Rajiv Gandhi Proudyogiki Vishwavidyalaya (RGPV), Bhopal. Advancing core concepts in data structures, algorithms, computer networks, database systems, and practical project development.</p>
+                            </div>
+                        </div>
+
+                        <!-- Diploma in Engineering -->
+                        <div class="relative pl-8">
+                            <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-charcoal border-4 border-cream"></div>
+                            <div class="bg-cardBg p-6 rounded-xl border border-subtleBorder shadow-sm max-w-3xl">
+                                <div class="flex flex-wrap justify-between items-start gap-2 mb-2">
+                                    <span class="px-3 py-1 rounded-full bg-mutedBeige text-charcoal text-xs font-bold uppercase border border-subtleBorder">2023 – 2026 (Completed in 2026)</span>
+                                    <span class="text-xs font-semibold text-emerald-600">Successfully Completed</span>
+                                </div>
+                                <h4 class="text-xl font-serif-title font-bold text-charcoal">Diploma in Engineering</h4>
+                                <p class="text-sm text-terracotta font-medium mb-3">Government Polytechnic College, Raghogarh</p>
+                                <p class="text-sm text-gray-600">Board/University: RGPV. Built a strong foundational understanding in programming fundamentals, hardware basics, internet technologies, and electronics projects.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Technical Skills Section -->
+            <section id="skills" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
+                <div class="border-t border-subtleBorder pt-12">
+                    <div class="mb-10">
+                        <h2 class="text-xs uppercase tracking-widest text-terracotta font-semibold mb-2">Technical Competencies</h2>
+                        <h3 class="text-3xl sm:text-4xl font-serif-title font-bold text-charcoal">Technical Skills</h3>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Frontend Dev Card -->
+                        <div class="bg-cardBg p-6 rounded-xl border border-subtleBorder shadow-sm">
+                            <div class="flex items-center space-x-3 mb-6">
+                                <span class="p-2.5 rounded-lg bg-terracotta/10 text-terracotta"><i class="fa-solid fa-laptop-code text-lg"></i></span>
+                                <h4 class="font-serif-title font-bold text-xl text-charcoal">Frontend Development</h4>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1.5 rounded-lg bg-cream text-charcoal text-sm font-medium border border-subtleBorder">HTML5</span>
+                                <span class="px-3 py-1.5 rounded-lg bg-cream text-charcoal text-sm font-medium border border-subtleBorder">CSS3</span>
+                                <span class="px-3 py-1.5 rounded-lg bg-cream text-charcoal text-sm font-medium border border-subtleBorder">JavaScript (ES6+)</span>
+                                <span class="px-3 py-1.5 rounded-lg bg-cream text-charcoal text-sm font-medium border border-subtleBorder">Responsive Design</span>
+                                <span class="px-3 py-1.5 rounded-lg bg-cream text-charcoal text-sm font-medium border border-subtleBorder">DOM Manipulation</span>
+                                <span class="px-3 py-1.5 rounded-lg bg-cream text-charcoal text-sm font-medium border border-subtleBorder">Local Storage</span>
+                                <span class="px-3 py-1.5 rounded-lg bg-cream text-charcoal text-sm font-medium border border-subtleBorder">UI Animations</span>
+                            </div>
+                        </div>
+
+                        <!-- Programming & Computer Science Card -->
+                        <div class="bg-cardBg p-6 rounded-xl border border-subtleBorder shadow-sm">
+                            <div class="flex items-center space-x-3 mb-6">
+                                <span class="p-2.5 rounded-lg bg-terracotta/10 text-terracotta"><i class="fa-solid fa-terminal text-lg"></i></span>
+                                <h4 class="font-serif-title font-bold text-xl text-charcoal">Programming & CS</h4>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1.5 rounded-lg bg-cream text-charcoal text-sm font-medium border border-subtleBorder">Python</span>
+                                <span class="px-3 py-1.5 rounded-lg bg-cream text-charcoal text-sm font-medium border border-subtleBorder">Java</span>
+                                <span class="px-3 py-1.5 rounded-lg bg-cream text-charcoal text-sm font-medium border border-subtleBorder">Data Structures & Algorithms</span>
+                                <span class="px-3 py-1.5 rounded-lg bg-cream text-charcoal text-sm font-medium border border-subtleBorder">Problem Solving</span>
+                            </div>
+                        </div>
+
+                        <!-- Tools & Environment Card -->
+                        <div class="bg-cardBg p-6 rounded-xl border border-subtleBorder shadow-sm">
+                            <div class="flex items-center space-x-3 mb-6">
+                                <span class="p-2.5 rounded-lg bg-terracotta/10 text-terracotta"><i class="fa-solid fa-screwdriver-wrench text-lg"></i></span>
+                                <h4 class="font-serif-title font-bold text-xl text-charcoal">Tools & Development</h4>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1.5 rounded-lg bg-cream text-charcoal text-sm font-medium border border-subtleBorder">Git & GitHub</span>
+                                <span class="px-3 py-1.5 rounded-lg bg-cream text-charcoal text-sm font-medium border border-subtleBorder">VS Code</span>
+                                <span class="px-3 py-1.5 rounded-lg bg-cream text-charcoal text-sm font-medium border border-subtleBorder">Arduino IDE</span>
+                                <span class="px-3 py-1.5 rounded-lg bg-cream text-charcoal text-sm font-medium border border-subtleBorder">Browser DevTools</span>
+                            </div>
+                        </div>
+
+                        <!-- IoT & Robotics Card -->
+                        <div class="bg-cardBg p-6 rounded-xl border border-subtleBorder shadow-sm">
+                            <div class="flex items-center space-x-3 mb-6">
+                                <span class="p-2.5 rounded-lg bg-terracotta/10 text-terracotta"><i class="fa-solid fa-microchip text-lg"></i></span>
+                                <h4 class="font-serif-title font-bold text-xl text-charcoal">IoT & Robotics</h4>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1.5 rounded-lg bg-cream text-charcoal text-sm font-medium border border-subtleBorder">ESP32 DevKit V1</span>
+                                <span class="px-3 py-1.5 rounded-lg bg-cream text-charcoal text-sm font-medium border border-subtleBorder">ESP32-CAM</span>
+                                <span class="px-3 py-1.5 rounded-lg bg-cream text-charcoal text-sm font-medium border border-subtleBorder">Blynk IoT</span>
+                                <span class="px-3 py-1.5 rounded-lg bg-cream text-charcoal text-sm font-medium border border-subtleBorder">Sensor Integration</span>
+                                <span class="px-3 py-1.5 rounded-lg bg-cream text-charcoal text-sm font-medium border border-subtleBorder">Motor & Servo Control</span>
+                                <span class="px-3 py-1.5 rounded-lg bg-cream text-charcoal text-sm font-medium border border-subtleBorder">Embedded C/C++</span>
+                                <span class="px-3 py-1.5 rounded-lg bg-cream text-charcoal text-sm font-medium border border-subtleBorder">AI API Integration</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Featured Projects Section (All 6 Specified Cards) -->
+            <section id="projects" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
+                <div class="border-t border-subtleBorder pt-12">
+                    <div class="flex flex-col md:flex-row md:items-end justify-between mb-10">
+                        <div>
+                            <h2 class="text-xs uppercase tracking-widest text-terracotta font-semibold mb-2">Portfolio Showcase</h2>
+                            <h3 class="text-3xl sm:text-4xl font-serif-title font-bold text-charcoal">Featured Projects</h3>
+                        </div>
+                        <p class="text-sm text-gray-600 mt-2 md:mt-0 max-w-md">Click any project to inspect detailed specifications, architecture breakdown, and implementation features.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        
+                        <!-- PROJECT 1: NiRaBot-X -->
+                        <div class="bg-cardBg rounded-xl border border-subtleBorder shadow-sm overflow-hidden flex flex-col justify-between group hover:border-terracotta/50 transition-all duration-300">
+                            <div>
+                                <div class="bg-charcoal text-cream p-6 border-b border-subtleBorder relative overflow-hidden">
+                                    <div class="absolute -right-4 -bottom-4 text-white/5 text-8xl font-bold font-serif">01</div>
+                                    <div class="inline-block px-2.5 py-1 rounded bg-terracotta text-cream text-[11px] font-bold tracking-wider uppercase mb-3">Robotics & AI Prototype</div>
+                                    <h4 class="text-2xl font-serif-title font-bold">NiRaBot-X An AI Powered Humanoid Robot</h4>
+                                    
+                                </div>
+                                <div class="p-6">
+                                    <p class="text-sm text-gray-700 mb-4 line-clamp-3">
+                                        An AI-powered intelligent surveillance and humanoid robot combining robotics, IoT-based chassis control, voice interaction, local camera streaming, and safety sensors.
+                                    </p>
+            
+                                    <div class="flex flex-wrap gap-1.5 mb-4">
+                                        <span class="px-2 py-0.5 rounded bg-mutedBeige text-charcoal text-xs">ESP32</span>
+                                        <span class="px-2 py-0.5 rounded bg-mutedBeige text-charcoal text-xs">ESP32-CAM</span>
+                                        <span class="px-2 py-0.5 rounded bg-mutedBeige text-charcoal text-xs">Blynk IoT</span>
+                                        <span class="px-2 py-0.5 rounded bg-mutedBeige text-charcoal text-xs">Gemini API</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-6 pt-0">
+                                <button onclick="openProjectModal('nirabot')" class="w-full py-2.5 rounded-lg bg-cream text-charcoal font-medium border border-subtleBorder hover:bg-terracotta hover:text-cream hover:border-terracotta transition-all flex items-center justify-center text-sm">
+                                    View Details <i class="fa-solid fa-circle-info ml-2"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- PROJECT 2: Chess Game -->
+                        <div class="bg-cardBg rounded-xl border border-subtleBorder shadow-sm overflow-hidden flex flex-col justify-between group hover:border-terracotta/50 transition-all duration-300">
+                            <div>
+                                <div class="bg-mutedBeige p-6 border-b border-subtleBorder relative overflow-hidden">
+                                    <div class="absolute -right-4 -bottom-4 text-charcoal/5 text-8xl font-bold font-serif">02</div>
+                                    <div class="inline-block px-2.5 py-1 rounded bg-charcoal text-cream text-[11px] font-bold tracking-wider uppercase mb-3">Web Development</div>
+                                    <h4 class="text-2xl font-serif-title font-bold text-charcoal">Interactive Chess Game</h4>
+                                    <p class="text-xs text-gray-600 mt-1">Browser-based Board Strategy</p>
+                                </div>
+                                <div class="p-6">
+                                    <p class="text-sm text-gray-700 mb-4 line-clamp-3">
+                                        An interactive browser-based chess game designed with HTML5, CSS3, and JavaScript featuring board interaction, piece movement, legal move highlighting, and turn tracking.
+                                    </p>
+                                    <div class="flex flex-wrap gap-1.5 mb-4">
+                                        <span class="px-2 py-0.5 rounded bg-mutedBeige text-charcoal text-xs">HTML5</span>
+                                        <span class="px-2 py-0.5 rounded bg-mutedBeige text-charcoal text-xs">CSS3</span>
+                                        <span class="px-2 py-0.5 rounded bg-mutedBeige text-charcoal text-xs">JavaScript</span>
+                                        <span class="px-2 py-0.5 rounded bg-mutedBeige text-charcoal text-xs">DOM Manipulation</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-6 pt-0">
+                                <button onclick="openProjectModal('chess')" class="w-full py-2.5 rounded-lg bg-cream text-charcoal font-medium border border-subtleBorder hover:bg-terracotta hover:text-cream hover:border-terracotta transition-all flex items-center justify-center text-sm">
+                                    View Details <i class="fa-solid fa-circle-info ml-2"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- PROJECT 3: Personal Portfolio Website -->
+                        <div class="bg-cardBg rounded-xl border border-subtleBorder shadow-sm overflow-hidden flex flex-col justify-between group hover:border-terracotta/50 transition-all duration-300">
+                            <div>
+                                <div class="bg-terracotta text-cream p-6 border-b border-subtleBorder relative overflow-hidden">
+                                    <div class="absolute -right-4 -bottom-4 text-white/10 text-8xl font-bold font-serif">03</div>
+                                    <div class="inline-block px-2.5 py-1 rounded bg-charcoal text-cream text-[11px] font-bold tracking-wider uppercase mb-3">Frontend Showcase</div>
+                                    <h4 class="text-2xl font-serif-title font-bold">Personal Portfolio</h4>
+                                    <p class="text-xs text-cream/80 mt-1">Editorial Studio Inspired Design</p>
+                                </div>
+                                <div class="p-6">
+                                    <p class="text-sm text-gray-700 mb-4 line-clamp-3">
+                                        A responsive personal website showcasing academic journey, technical skills, verified milestones, robotics projects, and direct contact options.
+                                    </p>
+                                    <div class="flex flex-wrap gap-1.5 mb-4">
+                                        <span class="px-2 py-0.5 rounded bg-mutedBeige text-charcoal text-xs">HTML5</span>
+                                        <span class="px-2 py-0.5 rounded bg-mutedBeige text-charcoal text-xs">Tailwind CSS</span>
+                                        <span class="px-2 py-0.5 rounded bg-mutedBeige text-charcoal text-xs">Vanilla JS</span>
+                                        <span class="px-2 py-0.5 rounded bg-mutedBeige text-charcoal text-xs">Responsive UI</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-6 pt-0">
+                                <button onclick="openProjectModal('portfolio')" class="w-full py-2.5 rounded-lg bg-cream text-charcoal font-medium border border-subtleBorder hover:bg-terracotta hover:text-cream hover:border-terracotta transition-all flex items-center justify-center text-sm">
+                                    View Details <i class="fa-solid fa-circle-info ml-2"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- PROJECT 4: Interactive Calculator -->
+                        <div class="bg-cardBg rounded-xl border border-subtleBorder shadow-sm overflow-hidden flex flex-col justify-between group hover:border-terracotta/50 transition-all duration-300">
+                            <div>
+                                <div class="bg-mutedBeige p-6 border-b border-subtleBorder relative overflow-hidden">
+                                    <div class="absolute -right-4 -bottom-4 text-charcoal/5 text-8xl font-bold font-serif">04</div>
+                                    <div class="inline-block px-2.5 py-1 rounded bg-charcoal text-cream text-[11px] font-bold tracking-wider uppercase mb-3">JavaScript Tool</div>
+                                    <h4 class="text-2xl font-serif-title font-bold text-charcoal">Smart Calculator</h4>
+                                    <p class="text-xs text-gray-600 mt-1">Interactive Arithmetic Web App</p>
+                                </div>
+                                <div class="p-6">
+                                    <p class="text-sm text-gray-700 mb-4 line-clamp-3">
+                                        A clean, interactive arithmetic calculator built with HTML, CSS, and JavaScript supporting basic operations, keyboard input, decimal calculations, and error management.
+                                    </p>
+                                    <div class="flex flex-wrap gap-1.5 mb-4">
+                                        <span class="px-2 py-0.5 rounded bg-mutedBeige text-charcoal text-xs">JavaScript</span>
+                                        <span class="px-2 py-0.5 rounded bg-mutedBeige text-charcoal text-xs">CSS Grid</span>
+                                        <span class="px-2 py-0.5 rounded bg-mutedBeige text-charcoal text-xs">Event Handling</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-6 pt-0">
+                                <button onclick="openProjectModal('calculator')" class="w-full py-2.5 rounded-lg bg-cream text-charcoal font-medium border border-subtleBorder hover:bg-terracotta hover:text-cream hover:border-terracotta transition-all flex items-center justify-center text-sm">
+                                    View Details <i class="fa-solid fa-circle-info ml-2"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- PROJECT 5: TaskFlow -->
+                        <div class="bg-cardBg rounded-xl border border-subtleBorder shadow-sm overflow-hidden flex flex-col justify-between group hover:border-terracotta/50 transition-all duration-300">
+                            <div>
+                                <div class="bg-charcoal text-cream p-6 border-b border-subtleBorder relative overflow-hidden">
+                                    <div class="absolute -right-4 -bottom-4 text-white/5 text-8xl font-bold font-serif">05</div>
+                                    <div class="inline-block px-2.5 py-1 rounded bg-terracotta text-cream text-[11px] font-bold tracking-wider uppercase mb-3">Productivity App</div>
+                                    <h4 class="text-2xl font-serif-title font-bold">TaskFlow Dashboard</h4>
+                                    <p class="text-xs text-cream/70 mt-1">Local Storage Task Manager</p>
+                                </div>
+                                <div class="p-6">
+                                    <p class="text-sm text-gray-700 mb-4 line-clamp-3">
+                                        A productivity task management dashboard designed to organize daily tasks, filter by completion state, search items, and persist data in the browser's local storage.
+                                    </p>
+                                    <div class="flex flex-wrap gap-1.5 mb-4">
+                                        <span class="px-2 py-0.5 rounded bg-mutedBeige text-charcoal text-xs">JavaScript</span>
+                                        <span class="px-2 py-0.5 rounded bg-mutedBeige text-charcoal text-xs">Local Storage</span>
+                                        <span class="px-2 py-0.5 rounded bg-mutedBeige text-charcoal text-xs">UI State</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-6 pt-0 flex gap-2">
+                                <button onclick="openProjectModal('taskflow')" class="flex-1 py-2.5 rounded-lg bg-cream text-charcoal font-medium border border-subtleBorder hover:bg-terracotta hover:text-cream hover:border-terracotta transition-all flex items-center justify-center text-sm">
+                                    Details
+                                </button>
+                                <button onclick="switchTab('taskflow')" class="px-4 py-2.5 rounded-lg bg-terracotta text-cream font-medium hover:bg-terracotta-hover transition-all text-sm flex items-center">
+                                    Launch App <i class="fa-solid fa-arrow-right-long ml-1 text-xs"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- PROJECT 6: Network Topology Visualizer -->
+                        <div class="bg-cardBg rounded-xl border border-subtleBorder shadow-sm overflow-hidden flex flex-col justify-between group hover:border-terracotta/50 transition-all duration-300">
+                            <div>
+                                <div class="bg-mutedBeige p-6 border-b border-subtleBorder relative overflow-hidden">
+                                    <div class="absolute -right-4 -bottom-4 text-charcoal/5 text-8xl font-bold font-serif">06</div>
+                                    <div class="inline-block px-2.5 py-1 rounded bg-charcoal text-cream text-[11px] font-bold tracking-wider uppercase mb-3">CS Educational Tool</div>
+                                    <h4 class="text-2xl font-serif-title font-bold text-charcoal">Network Topology Visualizer</h4>
+                                    <p class="text-xs text-gray-600 mt-1">Interactive Diagram Engine</p>
+                                </div>
+                                <div class="p-6">
+                                    <p class="text-sm text-gray-700 mb-4 line-clamp-3">
+                                        An interactive educational tool for visualizing Bus, Star, Ring, Mesh, Tree, and Hybrid computer network topologies with node details and structural explanations.
+                                    </p>
+                                    <div class="flex flex-wrap gap-1.5 mb-4">
+                                        <span class="px-2 py-0.5 rounded bg-mutedBeige text-charcoal text-xs">SVG / Canvas</span>
+                                        <span class="px-2 py-0.5 rounded bg-mutedBeige text-charcoal text-xs">JavaScript</span>
+                                        <span class="px-2 py-0.5 rounded bg-mutedBeige text-charcoal text-xs">Networking</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-6 pt-0">
+                                <button onclick="openProjectModal('topology')" class="w-full py-2.5 rounded-lg bg-cream text-charcoal font-medium border border-subtleBorder hover:bg-terracotta hover:text-cream hover:border-terracotta transition-all flex items-center justify-center text-sm">
+                                    View Details <i class="fa-solid fa-circle-info ml-2"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- Internship Experience Section -->
+            <section id="experience" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
+                <div class="border-t border-subtleBorder pt-12">
+                    <div class="mb-10">
+                        <h2 class="text-xs uppercase tracking-widest text-terracotta font-semibold mb-2">Work Experience</h2>
+                        <h3 class="text-3xl sm:text-4xl font-serif-title font-bold text-charcoal">Internship Experience</h3>
+                    </div>
+
+                    <div class="bg-cardBg p-8 rounded-xl border border-subtleBorder shadow-sm relative overflow-hidden">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 pb-6 border-b border-subtleBorder">
+                            <div>
+                                <span class="px-3 py-1 rounded bg-terracotta/10 text-terracotta text-xs font-bold uppercase tracking-wider">Web Development Internship</span>
+                                <h4 class="text-2xl font-serif-title font-bold text-charcoal mt-2">Apex Planet Software Pvt. Ltd.</h4>
+                                <p class="text-sm font-medium text-gray-600">Role: Web Development Intern</p>
+                            </div>
+                            <span class="text-xs font-semibold text-gray-500 bg-mutedBeige px-3 py-1.5 rounded-full border border-subtleBorder mt-2 md:mt-0">Frontend Focus</span>
+                        </div>
+
+                        <p class="text-sm text-gray-700 leading-relaxed mb-6">
+                            Focused on HTML, CSS, JavaScript, responsive web interface design, and hands-on frontend task execution. Worked on targeted development projects including:
+                        </p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="p-4 rounded-lg bg-cream border border-subtleBorder">
+                                <h5 class="font-bold text-sm text-charcoal mb-1"><i class="fa-solid fa-check text-terracotta mr-2"></i>Task 1: Portfolio Basics</h5>
+                                <p class="text-xs text-gray-600">Understanding structural web layouts and responsive personal portfolio foundations.</p>
+                            </div>
+                            <div class="p-4 rounded-lg bg-cream border border-subtleBorder">
+                                <h5 class="font-bold text-sm text-charcoal mb-1"><i class="fa-solid fa-check text-terracotta mr-2"></i>Task 2: TaskFlow</h5>
+                                <p class="text-xs text-gray-600">Building a productivity task manager dashboard with browser local storage integration.</p>
+                            </div>
+                            <div class="p-4 rounded-lg bg-cream border border-subtleBorder">
+                                <h5 class="font-bold text-sm text-charcoal mb-1"><i class="fa-solid fa-check text-terracotta mr-2"></i>Task 3: SkyRoute</h5>
+                                <p class="text-xs text-gray-600">Frontend UI layout for a weather and travel planning application conceptualization.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Verified Highlights & Milestones -->
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="border-t border-subtleBorder pt-12">
+                    <div class="mb-8">
+                        <h2 class="text-xs uppercase tracking-widest text-terracotta font-semibold mb-2">Key Milestones</h2>
+                        <h3 class="text-3xl font-serif-title font-bold text-charcoal">Verified Highlights</h3>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="p-5 rounded-xl bg-mutedBeige/50 border border-subtleBorder">
+                            <span class="text-terracotta font-serif text-2xl font-bold block mb-1">2026</span>
+                            <h5 class="font-bold text-sm text-charcoal">Diploma Completed</h5>
+                            <p class="text-xs text-gray-600 mt-1">Completed Engineering Diploma at Government Polytechnic College, Raghogarh.</p>
+                        </div>
+                        <div class="p-5 rounded-xl bg-mutedBeige/50 border border-subtleBorder">
+                            <span class="text-terracotta font-serif text-2xl font-bold block mb-1">UIT RGPV</span>
+                            <h5 class="font-bold text-sm text-charcoal">B.Tech Lateral Entry</h5>
+                            <p class="text-xs text-gray-600 mt-1">Currently pursuing B.Tech CSE (2nd Year, 3rd Sem) at UIT RGPV, Bhopal.</p>
+                        </div>
+                        <div class="p-5 rounded-xl bg-mutedBeige/50 border border-subtleBorder">
+                            <span class="text-terracotta font-serif text-2xl font-bold block mb-1">NiRaBot-X</span>
+                            <h5 class="font-bold text-sm text-charcoal">AI & Robotics Prototype</h5>
+                            <p class="text-xs text-gray-600 mt-1">Co-developed humanoid & surveillance robot with ESP32 and Gemini AI integration.</p>
+                        </div>
+                        <div class="p-5 rounded-xl bg-mutedBeige/50 border border-subtleBorder">
+                            <span class="text-terracotta font-serif text-2xl font-bold block mb-1">Apex Planet</span>
+                            <h5 class="font-bold text-sm text-charcoal">Web Dev Internship</h5>
+                            <p class="text-xs text-gray-600 mt-1">Completed targeted frontend web development tasks and practical UI applications.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
+                <div class="border-t border-subtleBorder pt-12">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                        <div class="lg:col-span-5 space-y-6">
+                            <h2 class="text-xs uppercase tracking-widest text-terracotta font-semibold">Get In Touch</h2>
+                            <h3 class="text-3xl sm:text-4xl font-serif-title font-bold text-charcoal">Let's Build Something Great</h3>
+                            <p class="text-base text-gray-700 leading-relaxed">
+                                I'm always interested in learning, collaborating on projects, and exploring ideas in web development, software, robotics, and IoT.
+                            </p>
+
+                            <div class="space-y-4 pt-4">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-10 h-10 rounded-lg bg-terracotta/10 text-terracotta flex items-center justify-center">
+                                        <i class="fa-solid fa-envelope"></i>
+                                    </div>
+                                    <div>
+                                        <span class="text-xs font-semibold uppercase text-gray-500 block">Email Placeholder</span>
+                                        <a href="mailto:rakeshsaini41444@gmail.com" class="text-sm font-medium text-charcoal hover:text-terracotta">rakesh.saini.dev@example.com</a>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-10 h-10 rounded-lg bg-terracotta/10 text-terracotta flex items-center justify-center">
+                                        <i class="fa-brands fa-github"></i>
+                                    </div>
+                                    <div>
+                                        <span class="text-xs font-semibold uppercase text-gray-500 block">GitHub Profile</span>
+                                        <a href="https://github.com/rakesh01-saini/" target="_blank" rel="noopener noreferrer" class="text-sm font-medium text-charcoal hover:text-terracotta">github.com/rakesh-saini-placeholder</a>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-10 h-10 rounded-lg bg-terracotta/10 text-terracotta flex items-center justify-center">
+                                        <i class="fa-brands fa-linkedin"></i>
+                                    </div>
+                                    <div>
+                                        <span class="text-xs font-semibold uppercase text-gray-500 block">LinkedIn Profile</span>
+                                        <a href="https://www.linkedin.com/in/rakesh-saini-9a9b872b5/" target="_blank" rel="noopener noreferrer" class="text-sm font-medium text-charcoal hover:text-terracotta">linkedin.com/in/rakesh-saini-placeholder</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Interactive Demo Contact Form -->
+                        <div class="lg:col-span-7">
+                            <div class="bg-cardBg p-8 rounded-xl border border-subtleBorder shadow-sm">
+                                <div class="flex items-center justify-between mb-6">
+                                    <h4 class="font-serif-title font-bold text-2xl text-charcoal">Send a Message</h4>
+                                </div>
+
+                                <div id="contact-alert" class="hidden mb-6 p-4 rounded-lg text-sm font-medium"></div>
+
+                                <form id="portfolio-contact-form" onsubmit="handleContactSubmit(event)" class="space-y-4">
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                        <div>
+                                            <label class="block text-xs font-semibold text-charcoal uppercase mb-1">Your Name *</label>
+                                            <input type="text" id="contact-name" required placeholder="e.g. Alex Smith" class="w-full px-4 py-2.5 rounded-lg bg-cream border border-subtleBorder focus:border-terracotta focus:outline-none text-sm text-charcoal">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-semibold text-charcoal uppercase mb-1">Your Email *</label>
+                                            <input type="email" id="contact-email" required placeholder="alex@example.com" class="w-full px-4 py-2.5 rounded-lg bg-cream border border-subtleBorder focus:border-terracotta focus:outline-none text-sm text-charcoal">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-semibold text-charcoal uppercase mb-1">Subject *</label>
+                                        <input type="text" id="contact-subject" required placeholder="Project Collaboration / Inquiry" class="w-full px-4 py-2.5 rounded-lg bg-cream border border-subtleBorder focus:border-terracotta focus:outline-none text-sm text-charcoal">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-semibold text-charcoal uppercase mb-1">Message *</label>
+                                        <textarea id="contact-message" required rows="4" placeholder="Hello Rakesh, I would like to discuss..." class="w-full px-4 py-2.5 rounded-lg bg-cream border border-subtleBorder focus:border-terracotta focus:outline-none text-sm text-charcoal resize-none"></textarea>
+                                    </div>
+                                    <button type="submit" class="w-full py-3 rounded-lg bg-terracotta text-cream font-medium hover:bg-terracotta-hover transition-all shadow">
+                                        Send Message <i class="fa-solid fa-paper-plane ml-2 text-xs"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+
+        <!-- ========================================== -->
+        <!-- TAB 2: TASKFLOW INTEGRATED APP             -->
+        <!-- ========================================== -->
+        <div id="view-taskflow" class="hidden max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            <div class="bg-cardBg rounded-2xl border border-subtleBorder shadow-xl p-6 sm:p-8 space-y-6">
+                <!-- App Banner -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-subtleBorder gap-4">
+                    <div>
+                        <div class="inline-flex items-center space-x-2 text-terracotta text-xs font-bold uppercase tracking-wider mb-1">
+                            <i class="fa-solid fa-check-double"></i>
+                            <span>Apex Planet Task-2 Project</span>
+                        </div>
+                        <h2 class="text-3xl font-serif-title font-bold text-charcoal">TaskFlow — Smart Productivity Dashboard</h2>
+                        <p class="text-xs text-gray-500 mt-1">Organize daily work with local storage persistence on this browser.</p>
+                    </div>
+                    <div class="text-xs bg-mutedBeige px-3 py-2 rounded-lg border border-subtleBorder text-charcoal font-medium">
+                        <i class="fa-solid fa-database mr-1 text-terracotta"></i> Persistence: LocalStorage Enabled
+                    </div>
+                </div>
+
+                <!-- Controls: Add Task Input & Filter Bar -->
+                <div class="space-y-4">
+                    <!-- Input form -->
+                    <form onsubmit="addTaskFlowItem(event)" class="flex flex-col sm:flex-row gap-3">
+                        <input type="text" id="taskflow-input" required placeholder="Enter a new productive task..." class="flex-grow px-4 py-3 rounded-xl bg-cream border border-subtleBorder focus:border-terracotta focus:outline-none text-sm text-charcoal">
+                        <select id="taskflow-category" class="px-4 py-3 rounded-xl bg-cream border border-subtleBorder focus:border-terracotta focus:outline-none text-sm text-charcoal">
+                            <option value="General">General</option>
+                            <option value="Study">Study (RGPV)</option>
+                            <option value="Web Dev">Web Dev</option>
+                            <option value="Robotics">Robotics / IoT</option>
+                        </select>
+                        <button type="submit" class="px-6 py-3 rounded-xl bg-terracotta text-cream font-medium hover:bg-terracotta-hover transition-all whitespace-nowrap">
+                            <i class="fa-solid fa-plus mr-1"></i> Add Task
+                        </button>
+                    </form>
+
+                    <!-- Filter buttons and Search -->
+                    <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-2">
+                        <div class="flex items-center space-x-1 bg-cream p-1 rounded-lg border border-subtleBorder w-full sm:w-auto">
+                            <button onclick="setTaskFilter('all')" id="tf-filter-all" class="px-3 py-1.5 rounded text-xs font-medium bg-charcoal text-cream">All</button>
+                            <button onclick="setTaskFilter('active')" id="tf-filter-active" class="px-3 py-1.5 rounded text-xs font-medium text-charcoal">Active</button>
+                            <button onclick="setTaskFilter('completed')" id="tf-filter-completed" class="px-3 py-1.5 rounded text-xs font-medium text-charcoal">Completed</button>
+                        </div>
+                        <input type="text" id="taskflow-search" oninput="renderTaskFlow()" placeholder="Search tasks..." class="w-full sm:w-64 px-3 py-1.5 rounded-lg bg-cream border border-subtleBorder text-xs focus:outline-none">
+                    </div>
+                </div>
+
+                <!-- Tasks List Container -->
+                <div id="taskflow-list" class="space-y-3 min-h-[220px]">
+                    <!-- Dynamic rendering -->
+                </div>
+
+                <!-- Taskflow Footer Summary -->
+                <div class="flex items-center justify-between pt-4 border-t border-subtleBorder text-xs text-gray-500">
+                    <span id="taskflow-counter">0 tasks remaining</span>
+                    <button onclick="clearCompletedTasks()" class="text-terracotta hover:underline font-medium">Clear Completed</button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ========================================== -->
+        <!-- TAB 3: SHOPSPHERE INTEGRATED APP           -->
+        <!-- ========================================== -->
+        <div id="view-shopsphere" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            <div class="space-y-8">
+                <!-- ShopSphere Header -->
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center bg-cardBg p-6 rounded-2xl border border-subtleBorder shadow-sm gap-4">
+                    <div>
+                        <span class="text-xs font-bold text-terracotta uppercase tracking-wider">Interactive E-Commerce UI</span>
+                        <h2 class="text-3xl font-serif-title font-bold text-charcoal">ShopSphere Catalog</h2>
+                        <p class="text-xs text-gray-500">Browse robotics modules, development boards, and developer essentials.</p>
+                    </div>
+
+                    <!-- Cart Toggle Button -->
+                    <button onclick="openCartModal()" class="px-5 py-2.5 rounded-xl bg-charcoal text-cream font-medium hover:bg-charcoal/90 transition-all flex items-center relative">
+                        <i class="fa-solid fa-cart-shopping mr-2 text-terracotta"></i> View Cart
+                        <span id="cart-badge" class="ml-2 bg-terracotta text-cream text-xs px-2 py-0.5 rounded-full font-bold">0</span>
+                    </button>
+                </div>
+
+                <!-- ShopSphere Search, Filters & Sorting -->
+                <section class="bg-cardBg p-5 sm:p-6 rounded-2xl border border-subtleBorder shadow-sm space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3">
+                        <div class="xl:col-span-2">
+                            <label for="shop-search" class="block text-xs font-bold uppercase tracking-wide text-charcoal mb-2">Search Products</label>
+                            <div class="relative">
+                                <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                                <input id="shop-search" type="search" oninput="renderShopSphere()" placeholder="Search mobiles, headphones, shoes..." class="w-full pl-11 pr-4 py-3 rounded-xl bg-cream border border-subtleBorder focus:border-terracotta focus:outline-none text-sm text-charcoal">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="shop-category" class="block text-xs font-bold uppercase tracking-wide text-charcoal mb-2">Category</label>
+                            <select id="shop-category" onchange="renderShopSphere()" class="w-full px-3 py-3 rounded-xl bg-cream border border-subtleBorder focus:border-terracotta focus:outline-none text-sm text-charcoal">
+                                <option value="all">All Categories</option>
+                                <option value="Mobiles">Mobiles</option>
+                                <option value="Laptops">Laptops</option>
+                                <option value="Audio">Audio & Headphones</option>
+                                <option value="Wearables">Watches & Wearables</option>
+                                <option value="Fashion">Fashion & Shoes</option>
+                                <option value="Home">Home Appliances</option>
+                                <option value="Accessories">Accessories</option>
+                                <option value="Gaming">Gaming</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="shop-sort" class="block text-xs font-bold uppercase tracking-wide text-charcoal mb-2">Sort By</label>
+                            <select id="shop-sort" onchange="renderShopSphere()" class="w-full px-3 py-3 rounded-xl bg-cream border border-subtleBorder focus:border-terracotta focus:outline-none text-sm text-charcoal">
+                                <option value="popular">Popularity</option>
+                                <option value="price-low">Price: Low to High</option>
+                                <option value="price-high">Price: High to Low</option>
+                                <option value="rating">Customer Rating</option>
+                                <option value="discount">Biggest Discount</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                        <div>
+                            <label for="shop-min-price" class="block text-xs font-semibold text-gray-600 mb-1">Min Price (₹)</label>
+                            <input id="shop-min-price" type="number" min="0" oninput="renderShopSphere()" placeholder="0" class="w-full px-3 py-2.5 rounded-lg bg-cream border border-subtleBorder focus:border-terracotta focus:outline-none text-sm">
+                        </div>
+                        <div>
+                            <label for="shop-max-price" class="block text-xs font-semibold text-gray-600 mb-1">Max Price (₹)</label>
+                            <input id="shop-max-price" type="number" min="0" oninput="renderShopSphere()" placeholder="Any price" class="w-full px-3 py-2.5 rounded-lg bg-cream border border-subtleBorder focus:border-terracotta focus:outline-none text-sm">
+                        </div>
+                        <div>
+                            <label for="shop-rating" class="block text-xs font-semibold text-gray-600 mb-1">Minimum Rating</label>
+                            <select id="shop-rating" onchange="renderShopSphere()" class="w-full px-3 py-2.5 rounded-lg bg-cream border border-subtleBorder focus:border-terracotta focus:outline-none text-sm">
+                                <option value="0">Any Rating</option>
+                                <option value="3">3★ & above</option>
+                                <option value="4">4★ & above</option>
+                                <option value="4.5">4.5★ & above</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+                        <p id="shop-results-count" class="text-sm text-gray-600">Showing products</p>
+                        <button onclick="resetShopFilters()" class="text-sm font-semibold text-terracotta hover:underline"><i class="fa-solid fa-rotate-left mr-1"></i>Clear Filters</button>
+                    </div>
+                </section>
+
+                <!-- Product Catalog Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5" id="shopsphere-catalog">
+                    <!-- Products are rendered dynamically via JavaScript -->
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Project Details Modal -->
+    <div id="project-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
+        <div class="bg-cardBg rounded-2xl border border-subtleBorder max-w-2xl w-full max-h-[90vh] overflow-y-auto custom-scrollbar shadow-2xl p-6 sm:p-8 space-y-6 relative">
+            <button onclick="closeProjectModal()" class="absolute top-6 right-6 text-gray-400 hover:text-charcoal text-xl focus:outline-none">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div id="modal-content">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ShopSphere Cart Modal -->
+    <div id="cart-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
+        <div class="bg-cardBg rounded-2xl border border-subtleBorder max-w-lg w-full shadow-2xl p-6 space-y-6 relative">
+            <div class="flex justify-between items-center pb-4 border-b border-subtleBorder">
+                <h3 class="text-2xl font-serif-title font-bold text-charcoal"><i class="fa-solid fa-cart-shopping text-terracotta mr-2"></i>Shopping Cart</h3>
+                <button onclick="closeCartModal()" class="text-gray-400 hover:text-charcoal text-lg"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <div id="cart-items-container" class="space-y-3 max-h-60 overflow-y-auto custom-scrollbar">
+                <!-- Cart list rendered dynamically -->
+            </div>
+
+            <div class="border-t border-subtleBorder pt-4 space-y-3">
+                <div class="flex justify-between text-base font-bold text-charcoal">
+                    <span>Total Amount:</span>
+                    <span id="cart-total-price">₹0</span>
+                </div>
+                <button onclick="checkoutCart()" class="w-full py-3 rounded-xl bg-terracotta text-cream font-medium hover:bg-terracotta-hover transition-all text-center">
+                    Proceed to Checkout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Editorial Studio Footer -->
+    <footer class="bg-charcoal text-cream border-t border-subtleBorder/20 mt-16 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 pb-8 border-b border-cream/10">
+                <div class="md:col-span-6 space-y-3">
+                    <div class="flex items-center space-x-3">
+                        <span class="w-8 h-8 rounded-full bg-terracotta text-cream font-serif font-bold text-sm flex items-center justify-center">RS</span>
+                        <span class="text-xl font-serif-title font-bold tracking-tight">Rakesh Saini</span>
+                    </div>
+                    <p class="text-xs text-cream/70 max-w-sm">
+                        Computer Science Engineering Student at UIT RGPV Bhopal | Web Developer | IoT & Robotics Developer.
+                    </p>
+                </div>
+                <div class="md:col-span-6 flex flex-col md:items-end justify-center space-y-2 text-xs text-cream/80">
+                    <p class="font-serif italic text-base text-terracotta">"Designed with curiosity. Built with code."</p>
+                    <p>© <span id="copyright-year"></span> Rakesh Saini. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Set dynamic year
+        document.getElementById('copyright-year').textContent = new Date().getFullYear();
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('mobile-menu-icon');
+            menu.classList.toggle('hidden');
+            if (menu.classList.contains('hidden')) {
+                icon.className = 'fa-solid fa-bars text-xl';
+            } else {
+                icon.className = 'fa-solid fa-xmark text-xl';
+            }
+        }
+
+        // Integrated Workspace Tab Switcher
+        function switchTab(tab) {
+            const portfolioView = document.getElementById('view-portfolio');
+            const taskflowView = document.getElementById('view-taskflow');
+            const shopsphereView = document.getElementById('view-shopsphere');
+
+            const btnPortfolio = document.getElementById('tab-btn-portfolio');
+            const btnTaskflow = document.getElementById('tab-btn-taskflow');
+            const btnShopsphere = document.getElementById('tab-btn-shopsphere');
+
+            const activeClass = 'px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 bg-charcoal text-cream shadow-sm';
+            const inactiveClass = 'px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 text-charcoal hover:bg-cream/60';
+
+            portfolioView.classList.add('hidden');
+            taskflowView.classList.add('hidden');
+            shopsphereView.classList.add('hidden');
+
+            btnPortfolio.className = inactiveClass;
+            btnTaskflow.className = inactiveClass;
+            btnShopsphere.className = inactiveClass;
+
+            if (tab === 'portfolio') {
+                portfolioView.classList.remove('hidden');
+                btnPortfolio.className = activeClass;
+            } else if (tab === 'taskflow') {
+                taskflowView.classList.remove('hidden');
+                btnTaskflow.className = activeClass;
+                renderTaskFlow();
+            } else if (tab === 'shopsphere') {
+                shopsphereView.classList.remove('hidden');
+                btnShopsphere.className = activeClass;
+                renderShopSphere();
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Resume Download Simulation
+        function downloadResume() {
+            const resumeText = `RAKESH SAINI — CURRICULUM VITAE
+--------------------------------------------------
+Professional Title: CSE Student | Web Developer | IoT & Robotics Developer
+University: UIT RGPV, Bhopal (B.Tech Lateral Entry, 2nd Year, 3rd Sem)
+Previous Qualification: Diploma in Engineering (Government Polytechnic College, Raghogarh - 2026)
+Internship: Apex Planet Software Pvt. Ltd. (Web Development Intern)
+
+TECHNICAL SKILLS:
+- Frontend: HTML5, CSS3, JavaScript, DOM Manipulation, Local Storage, Responsive UI
+- Programming: Python, Java, Data Structures & Algorithms (DSA)
+- IoT & Robotics: ESP32, ESP32-CAM, Blynk IoT, Sensors, Servo/Motor Control, Embedded C/C++
+- Tools: Git, GitHub, VS Code, Arduino IDE
+
+KEY PROJECTS:
+1. NiRaBot-X (AI Surveillance & Humanoid Robot with Gemini API & ESP32)
+2. TaskFlow (Smart Productivity Dashboard with LocalStorage)
+3. Chess Game (Interactive Browser Board Strategy Game)
+4. Personal Portfolio Website (Editorial Studio Theme)
+5. Calculator (Interactive Arithmetic App)
+6. Network Topology Visualizer (Interactive Diagram Engine)
+
+Contact Email: rakesh.saini.dev@example.com
+` ;
+            const blob = new Blob([resumeText], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Rakesh_Saini_Resume.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        const projectDetails = {
+            nirabot: {
+                title: "NiRaBot-X: AI-Powered Intelligent Surveillance & Humanoid Robot",
+                category: "Robotics | IoT | Embedded Systems | AI Integration",
+                
+                description: "NiRaBot-X is an AI-powered intelligent surveillance and humanoid robot prototype that combines robotics, IoT-based chassis movement, voice interaction, local network live video streaming, and sensor safety capabilities.",
+                tech: ["ESP32 DevKit V1", "ESP32-CAM", "Arduino IDE / C++", "Blynk IoT", "HTML/CSS/JS", "Python Flask Prototype", "Gemini API", "Telegram Bot API", "INMP441 Microphone", "MAX98357A Audio Amp", "HC-SR04 Ultrasonic Sensor", "L293D Motor Driver", "SG90 Servo Motors"],
+                features: [
+                    "AI voice interaction and spoken audio responses.",
+                    "Blynk IoT remote chassis navigation.",
+                    "Separate manual chassis and servo head controls.",
+                    "Local Wi-Fi network live video stream via WebServer.",
+                    "Telegram-based image capture and remote photo alerts.",
+                    "Ultrasonic sensor obstacle detection safety behavior.",
+                    "OLED display eye animations and status feedback."
+                ],
+                notes: "Accuracy Note: NiRaBot-X is an educational research prototype. Video streaming operates on local network, Telegram delivery requires bot connectivity, and OLED eyes are programmatic animations."
+            },
+            chess: {
+                title: "Interactive Chess Game",
+                category: "Web Development | JavaScript | Interactive Games",
+                description: "An interactive browser-based chess game designed to offer an intuitive user interface for playing chess, managing turns, and validating basic move legalities.",
+                tech: ["HTML5", "CSS3", "JavaScript", "DOM Event Handling"],
+                features: [
+                    "Interactive 8x8 chessboard layout.",
+                    "Piece movement and move selection highlighting.",
+                    "Turn-based player management.",
+                    "Game reset and board re-initialization controls.",
+                    "Responsive board scaling across mobile and desktop."
+                ]
+            },
+            portfolio: {
+                title: "Personal Portfolio Website",
+                category: "Frontend Development | UI Design | Responsive Websites",
+                description: "A responsive personal website crafted using an Editorial Studio theme language to showcase academic details, skills, projects, and contact channels.",
+                tech: ["HTML5", "CSS3 / Tailwind", "Vanilla JavaScript"],
+                features: [
+                    "Sticky editorial navigation bar with mobile drawer.",
+                    "Interactive project details modal popups.",
+                    "Verified education timeline cards.",
+                    "Direct client-side contact form validation.",
+                    "Full responsiveness with accessibility consideration."
+                ]
+            },
+            calculator: {
+                title: "Smart Calculator",
+                category: "JavaScript | Interactive Web Application",
+                description: "A clean, interactive calculator built with HTML, CSS, and JavaScript for performing standard arithmetic calculations seamlessly.",
+                tech: ["HTML5", "CSS3", "JavaScript"],
+                features: [
+                    "Addition, subtraction, multiplication, and division.",
+                    "Clear, delete, and decimal input handling.",
+                    "Keyboard event listener support.",
+                    "Responsive key layout."
+                ]
+            },
+            taskflow: {
+                title: "TaskFlow — Smart Productivity Dashboard",
+                category: "Productivity | JavaScript | Local Storage",
+                description: "A productivity task management application enabling users to create, filter, search, and manage daily tasks with local storage persistence.",
+                tech: ["HTML5", "CSS3", "JavaScript", "Browser Local Storage"],
+                features: [
+                    "Task creation with category tags.",
+                    "Mark tasks complete / active.",
+                    "Filter by All, Active, and Completed status.",
+                    "Search filter input for quick lookup.",
+                    "Persistent storage in browser memory."
+                ]
+            },
+            topology: {
+                title: "Network Topology Visualizer",
+                category: "Computer Networks | Visualization | JavaScript",
+                description: "An interactive educational tool for visualizing standard computer network topologies and understanding node connectivity.",
+                tech: ["HTML5", "CSS3", "JavaScript", "SVG Diagramming"],
+                features: [
+                    "Visual diagrams for Bus, Star, Ring, Mesh, Tree, and Hybrid topologies.",
+                    "Interactive node highlighting and structure explanations.",
+                    "Educational summaries of advantages and trade-offs."
+                ]
+            }
+        };
+
+        function openProjectModal(key) {
+            const modal = document.getElementById('project-modal');
+            const content = document.getElementById('modal-content');
+            const p = projectDetails[key];
+
+            if (!p) return;
+
+            let techBadges = p.tech.map(t => `<span class="px-2.5 py-1 rounded-md bg-cream border border-subtleBorder text-charcoal text-xs font-semibold">${t}</span>`).join(' ');
+            let featureList = p.features.map(f => `<li class="flex items-start"><i class="fa-solid fa-angle-right text-terracotta mr-2 mt-1"></i><span>${f}</span></li>`).join('');
+
+            content.innerHTML = `
+                <div class="space-y-4">
+                    <span class="text-xs uppercase tracking-wider text-terracotta font-bold">${p.category}</span>
+                    <h3 class="text-3xl font-serif-title font-bold text-charcoal">${p.title}</h3>
+                    ${p.credits ? `<p class="text-xs font-semibold text-charcoal/80 bg-mutedBeige px-3 py-1.5 rounded-lg border border-subtleBorder inline-block"><i class="fa-solid fa-users mr-1"></i>${p.credits}</p>` : ''}
+                    <p class="text-sm text-gray-700 leading-relaxed">${p.description}</p>
+                    
+                    <div>
+                        <h4 class="text-xs font-bold uppercase text-gray-500 mb-2">Technologies Used</h4>
+                        <div class="flex flex-wrap gap-2">${techBadges}</div>
+                    </div>
+
+                    <div>
+                        <h4 class="text-xs font-bold uppercase text-gray-500 mb-2">Key Features</h4>
+                        <ul class="text-sm text-gray-700 space-y-1">${featureList}</ul>
+                    </div>
+
+                    ${p.notes ? `<div class="p-3 bg-cream border border-subtleBorder rounded-lg text-xs text-gray-600 italic">${p.notes}</div>` : ''}
+                </div>
+            `;
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeProjectModal() {
+            document.getElementById('project-modal').classList.add('hidden');
+        }
+
+        // Contact Form Handling
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            const alert = document.getElementById('contact-alert');
+            const name = document.getElementById('contact-name').value;
+
+            alert.className = "mb-6 p-4 rounded-lg text-sm font-medium bg-emerald-100 text-emerald-800 border border-emerald-300";
+            alert.innerHTML = `<i class="fa-solid fa-circle-check mr-2"></i> Thank you, <strong>${name}</strong>! Your message has been captured successfully.`;
+            alert.classList.remove('hidden');
+
+            document.getElementById('portfolio-contact-form').reset();
+            setTimeout(() => {
+                alert.classList.add('hidden');
+            }, 6000);
+        }
+
+        let taskFlowData = JSON.parse(localStorage.getItem('devspace_taskflow') || '[]');
+        let currentFilter = 'all';
+
+        function saveTaskFlow() {
+            localStorage.setItem('devspace_taskflow', JSON.stringify(taskFlowData));
+            renderTaskFlow();
+        }
+
+        function addTaskFlowItem(e) {
+            e.preventDefault();
+            const input = document.getElementById('taskflow-input');
+            const cat = document.getElementById('taskflow-category').value;
+            if (!input.value.trim()) return;
+
+            taskFlowData.push({
+                id: Date.now(),
+                text: input.value.trim(),
+                category: cat,
+                completed: false
+            });
+
+            input.value = '';
+            saveTaskFlow();
+        }
+
+        function toggleTask(id) {
+            taskFlowData = taskFlowData.map(t => t.id === id ? { ...t, completed: !t.completed } : t);
+            saveTaskFlow();
+        }
+
+        function deleteTask(id) {
+            taskFlowData = taskFlowData.filter(t => t.id !== id);
+            saveTaskFlow();
+        }
+
+        function setTaskFilter(filter) {
+            currentFilter = filter;
+            ['all', 'active', 'completed'].forEach(f => {
+                const btn = document.getElementById(`tf-filter-${f}`);
+                if (f === filter) {
+                    btn.className = "px-3 py-1.5 rounded text-xs font-medium bg-charcoal text-cream";
+                } else {
+                    btn.className = "px-3 py-1.5 rounded text-xs font-medium text-charcoal";
+                }
+            });
+            renderTaskFlow();
+        }
+
+        function clearCompletedTasks() {
+            taskFlowData = taskFlowData.filter(t => !t.completed);
+            saveTaskFlow();
+        }
+
+        function renderTaskFlow() {
+            const container = document.getElementById('taskflow-list');
+            const search = document.getElementById('taskflow-search') ? document.getElementById('taskflow-search').value.toLowerCase() : '';
+            
+            let filtered = taskFlowData.filter(t => {
+                if (currentFilter === 'active') return !t.completed;
+                if (currentFilter === 'completed') return t.completed;
+                return true;
+            }).filter(t => t.text.toLowerCase().includes(search));
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 text-gray-400">
+                        <i class="fa-solid fa-clipboard-list text-3xl mb-2 block"></i>
+                        <p class="text-sm">No tasks found in this view.</p>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = filtered.map(t => `
+                    <div class="flex items-center justify-between p-4 rounded-xl border border-subtleBorder bg-cream/50 hover:bg-cream transition-all">
+                        <div class="flex items-center space-x-3">
+                            <input type="checkbox" ${t.completed ? 'checked' : ''} onchange="toggleTask(${t.id})" class="w-4 h-4 accent-terracotta rounded cursor-pointer">
+                            <span class="text-sm font-medium ${t.completed ? 'line-through text-gray-400' : 'text-charcoal'}">${t.text}</span>
+                            <span class="text-[10px] px-2 py-0.5 rounded bg-mutedBeige text-gray-600 font-bold uppercase">${t.category}</span>
+                        </div>
+                        <button onclick="deleteTask(${t.id})" class="text-gray-400 hover:text-rose-600 text-sm p-1">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </div>
+                `).join('');
+            }
+
+            const activeCount = taskFlowData.filter(t => !t.completed).length;
+            document.getElementById('taskflow-counter').textContent = `${activeCount} task${activeCount === 1 ? '' : 's'} remaining`;
+        }
+
+        // ShopSphere demo catalogue: everyday e-commerce products (illustrative prices/ratings).
+        const shopProducts = [
+            { id: 1, name: "Nova X5 5G Smartphone", price: 18999, mrp: 24999, category: "Mobiles", rating: 4.4, reviews: 2841, popularity: 98, desc: "5G smartphone with vivid display, fast performance and all-day battery.", image: "https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=800&q=85", badge: "Bestseller" },
+            { id: 2, name: "AeroBook 15 Laptop", price: 48990, mrp: 59990, category: "Laptops", rating: 4.3, reviews: 1240, popularity: 91, desc: "Slim everyday laptop for study, work and entertainment.", image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=800&q=85", badge: "Deal of the Day" },
+            { id: 3, name: "Pulse Wireless Headphones", price: 1799, mrp: 3999, category: "Audio", rating: 4.2, reviews: 3912, popularity: 96, desc: "Wireless over-ear headphones with rich sound and cushioned ear cups.", image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=85", badge: "Popular" },
+            { id: 4, name: "SoundPods Pro Earbuds", price: 2299, mrp: 4999, category: "Audio", rating: 4.1, reviews: 2108, popularity: 90, desc: "Compact Bluetooth earbuds for calls, music and daily travel.", image: "https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?auto=format&fit=crop&w=800&q=85", badge: "Great Value" },
+            { id: 5, name: "Chrono Active Smartwatch", price: 2499, mrp: 6999, category: "Wearables", rating: 4.0, reviews: 1844, popularity: 87, desc: "Smartwatch with activity tracking, notifications and customizable faces.", image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=85", badge: "Limited Deal" },
+            { id: 6, name: "Classic Minimal Wristwatch", price: 1599, mrp: 2999, category: "Wearables", rating: 4.3, reviews: 754, popularity: 73, desc: "Minimal everyday wristwatch with a clean, timeless design.", image: "https://images.unsplash.com/photo-1524805444758-089113d48a6d?auto=format&fit=crop&w=800&q=85", badge: "" },
+            { id: 7, name: "Urban Runner Sneakers", price: 1999, mrp: 3499, category: "Fashion", rating: 4.2, reviews: 1673, popularity: 89, desc: "Lightweight everyday sneakers designed for comfort and casual wear.", image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=85", badge: "Trending" },
+            { id: 8, name: "Everyday Backpack", price: 999, mrp: 1999, category: "Fashion", rating: 4.1, reviews: 946, popularity: 76, desc: "Roomy backpack for college, commuting and weekend trips.", image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=85", badge: "" },
+            { id: 9, name: "Cotton Casual T-Shirt", price: 499, mrp: 999, category: "Fashion", rating: 4.0, reviews: 1130, popularity: 81, desc: "Soft cotton casual tee with a versatile everyday fit.", image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=85", badge: "Budget Pick" },
+            { id: 10, name: "BrewMate Coffee Maker", price: 2799, mrp: 4499, category: "Home", rating: 4.2, reviews: 634, popularity: 69, desc: "Easy-to-use coffee maker for a fresh cup at home.", image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=85", badge: "" },
+            { id: 11, name: "AirFlow Desk Fan", price: 1299, mrp: 1999, category: "Home", rating: 3.9, reviews: 517, popularity: 62, desc: "Compact desk fan for personal cooling at home or in the office.", image: "https://images.unsplash.com/photo-1618941716938-948d7c02a7e7?auto=format&fit=crop&w=800&q=85", badge: "" },
+            { id: 12, name: "Glow LED Desk Lamp", price: 799, mrp: 1499, category: "Home", rating: 4.4, reviews: 809, popularity: 74, desc: "Modern desk lamp for reading, studying and workspace lighting.", image: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=800&q=85", badge: "Top Rated" },
+            { id: 13, name: "Swift 20W USB-C Charger", price: 599, mrp: 1299, category: "Accessories", rating: 4.3, reviews: 2290, popularity: 92, desc: "Compact fast-charging adapter for compatible phones and devices.", image: "https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=800&q=85", badge: "Bestseller" },
+            { id: 14, name: "Flex USB-C Cable 2m", price: 249, mrp: 499, category: "Accessories", rating: 4.0, reviews: 1442, popularity: 79, desc: "Durable two-metre charging and data cable for everyday use.", image: "https://images.unsplash.com/photo-1615526675159-e248c3021d3f?auto=format&fit=crop&w=800&q=85", badge: "" },
+            { id: 15, name: "Portable Bluetooth Speaker", price: 1499, mrp: 2999, category: "Audio", rating: 4.2, reviews: 1063, popularity: 83, desc: "Portable speaker for music at home, outdoors and on trips.", image: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=800&q=85", badge: "Popular" },
+            { id: 16, name: "GamePro Wireless Controller", price: 2199, mrp: 3999, category: "Gaming", rating: 4.1, reviews: 725, popularity: 71, desc: "Comfortable wireless controller for compatible gaming devices.", image: "https://images.unsplash.com/photo-1600080972464-8e5f35f63d08?auto=format&fit=crop&w=800&q=85", badge: "" },
+            { id: 17, name: "Mechanical Gaming Keyboard", price: 2899, mrp: 4999, category: "Gaming", rating: 4.5, reviews: 902, popularity: 85, desc: "Responsive mechanical-style keyboard for gaming and productivity.", image: "https://images.unsplash.com/photo-1541140532154-b024d705b90a?auto=format&fit=crop&w=800&q=85", badge: "Top Rated" },
+            { id: 18, name: "Optical Wireless Mouse", price: 699, mrp: 1299, category: "Accessories", rating: 4.2, reviews: 1538, popularity: 88, desc: "Ergonomic wireless mouse for everyday laptop and desktop use.", image: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?auto=format&fit=crop&w=800&q=85", badge: "Great Value" },
+            { id: 19, name: "Polarized Sunglasses", price: 899, mrp: 1799, category: "Fashion", rating: 4.0, reviews: 583, popularity: 64, desc: "Classic lightweight sunglasses for daily outdoor wear.", image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=85", badge: "" },
+            { id: 20, name: "Smart Fitness Band", price: 1299, mrp: 2999, category: "Wearables", rating: 4.1, reviews: 1176, popularity: 78, desc: "Lightweight fitness band with activity and sleep tracking features.", image: "https://images.unsplash.com/photo-1557935728-e6d1eaabd7b4?auto=format&fit=crop&w=800&q=85", badge: "Value Deal" }
+        ];
+
+        let cart = [];
+
+        function renderShopSphere() {
+            const container = document.getElementById('shopsphere-catalog');
+            if (!container) return;
+
+            const searchTerm = (document.getElementById('shop-search')?.value || '').trim().toLowerCase();
+            const category = document.getElementById('shop-category')?.value || 'all';
+            const sortBy = document.getElementById('shop-sort')?.value || 'popular';
+            const minValue = document.getElementById('shop-min-price')?.value;
+            const maxValue = document.getElementById('shop-max-price')?.value;
+            const minPrice = minValue === '' || minValue == null ? 0 : Number(minValue);
+            const maxPrice = maxValue === '' || maxValue == null ? Infinity : Number(maxValue);
+            const minRating = Number(document.getElementById('shop-rating')?.value || 0);
+
+            let filtered = shopProducts.filter(p => {
+                const matchesSearch = `${p.name} ${p.category} ${p.desc}`.toLowerCase().includes(searchTerm);
+                const matchesCategory = category === 'all' || p.category === category;
+                const matchesMin = p.price >= minPrice;
+                const matchesMax = p.price <= maxPrice;
+                const matchesRating = p.rating >= minRating;
+                return matchesSearch && matchesCategory && matchesMin && matchesMax && matchesRating;
+            });
+
+            filtered.sort((a, b) => {
+                if (sortBy === 'price-low') return a.price - b.price;
+                if (sortBy === 'price-high') return b.price - a.price;
+                if (sortBy === 'rating') return b.rating - a.rating;
+                if (sortBy === 'discount') return ((b.mrp - b.price) / b.mrp) - ((a.mrp - a.price) / a.mrp);
+                return b.popularity - a.popularity;
+            });
+
+            const count = document.getElementById('shop-results-count');
+            if (count) count.textContent = `Showing ${filtered.length} of ${shopProducts.length} products`;
+
+            if (!filtered.length) {
+                container.innerHTML = `
+                    <div class="col-span-full text-center bg-cardBg rounded-2xl border border-subtleBorder p-12">
+                        <i class="fa-solid fa-box-open text-4xl text-terracotta mb-4"></i>
+                        <h3 class="text-xl font-serif-title font-bold text-charcoal">No products found</h3>
+                        <p class="text-sm text-gray-500 mt-2">Try another search or clear your filters.</p>
+                        <button onclick="resetShopFilters()" class="mt-4 px-5 py-2 rounded-lg bg-terracotta text-white text-sm font-semibold">Clear Filters</button>
+                    </div>`;
+                return;
+            }
+
+            container.innerHTML = filtered.map(p => {
+                const discount = Math.round(((p.mrp - p.price) / p.mrp) * 100);
+                return `
+                    <article class="bg-cardBg rounded-2xl border border-subtleBorder overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col group">
+                        <div class="relative bg-white h-52 p-4 flex items-center justify-center overflow-hidden">
+                            <img src="${p.image}" alt="${p.name}" loading="lazy" class="max-h-full max-w-full w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" onerror="this.onerror=null;this.src='https://placehold.co/600x400/F6F0E6/242321?text=Product+Image';">
+                            ${p.badge ? `<span class="absolute top-3 left-3 bg-terracotta text-white text-[10px] font-bold px-2.5 py-1 rounded-full">${p.badge}</span>` : ''}
+                            <span class="absolute top-3 right-3 bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-1 rounded-md">${discount}% OFF</span>
+                        </div>
+                        <div class="p-4 flex flex-col flex-grow">
+                            <span class="text-[10px] font-bold uppercase tracking-wider text-terracotta">${p.category}</span>
+                            <h3 class="font-semibold text-charcoal text-sm mt-1 leading-snug min-h-[40px]">${p.name}</h3>
+                            <div class="flex items-center gap-1.5 mt-2">
+                                <span class="inline-flex items-center gap-1 bg-emerald-700 text-white text-xs font-bold px-2 py-0.5 rounded">${p.rating} <i class="fa-solid fa-star text-[9px]"></i></span>
+                                <span class="text-xs text-gray-500">(${p.reviews.toLocaleString('en-IN')})</span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-2 line-clamp-2 min-h-[32px]">${p.desc}</p>
+                            <div class="mt-auto pt-4">
+                                <div class="flex items-baseline flex-wrap gap-x-2 gap-y-1">
+                                    <span class="text-xl font-bold text-charcoal">₹${p.price.toLocaleString('en-IN')}</span>
+                                    <span class="text-xs text-gray-400 line-through">₹${p.mrp.toLocaleString('en-IN')}</span>
+                                    <span class="text-xs font-semibold text-emerald-700">${discount}% off</span>
+                                </div>
+                                <button onclick="addToCart(${p.id})" class="w-full mt-3 py-2.5 rounded-xl bg-charcoal text-cream text-sm font-semibold hover:bg-terracotta transition-all">
+                                    <i class="fa-solid fa-cart-plus mr-2"></i>Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </article>`;
+            }).join('');
+        }
+
+        function resetShopFilters() {
+            document.getElementById('shop-search').value = '';
+            document.getElementById('shop-category').value = 'all';
+            document.getElementById('shop-sort').value = 'popular';
+            document.getElementById('shop-min-price').value = '';
+            document.getElementById('shop-max-price').value = '';
+            document.getElementById('shop-rating').value = '0';
+            renderShopSphere();
+        }
+
+        function addToCart(productId) {
+            const product = shopProducts.find(p => p.id === productId);
+            if (!product) return;
+            const existing = cart.find(item => item.id === productId);
+            if (existing) {
+                existing.qty++;
+            } else {
+                cart.push({ ...product, qty: 1 });
+            }
+            updateCartBadge();
+        }
+
+        function updateCartBadge() {
+            const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+            document.getElementById('cart-badge').textContent = totalQty;
+        }
+
+        function openCartModal() {
+            const modal = document.getElementById('cart-modal');
+            const container = document.getElementById('cart-items-container');
+            const totalPriceEl = document.getElementById('cart-total-price');
+
+            if (cart.length === 0) {
+                container.innerHTML = `<p class="text-xs text-gray-500 text-center py-6">Your cart is currently empty.</p>`;
+                totalPriceEl.textContent = "₹0";
+            } else {
+                let total = 0;
+                container.innerHTML = cart.map(item => {
+                    const itemTotal = item.price * item.qty;
+                    total += itemTotal;
+                    return `
+                        <div class="flex justify-between items-center p-3 rounded-lg bg-cream border border-subtleBorder text-xs">
+                            <div>
+                                <span class="font-bold text-charcoal block">${item.name}</span>
+                                <span class="text-gray-500">₹${item.price} x ${item.qty}</span>
+                            </div>
+                            <span class="font-bold text-charcoal">₹${itemTotal}</span>
+                        </div>
+                    `;
+                }).join('');
+                totalPriceEl.textContent = `₹${total}`;
+            }
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeCartModal() {
+            document.getElementById('cart-modal').classList.add('hidden');
+        }
+
+        function checkoutCart() {
+            if (cart.length === 0) return;
+            alert("Checkout Demo: Order placed successfully!");
+            cart = [];
+            updateCartBadge();
+            closeCartModal();
+        }
+    </script>
+</body>
+</html>
